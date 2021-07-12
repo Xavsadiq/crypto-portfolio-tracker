@@ -1,0 +1,35 @@
+.form-container {
+    display:flex;
+    width: 350px;
+    flex-direction: column;
+}
+
+.form-style {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: space-between;
+}
+
+.label-style {
+    width: 300px;
+}
+
+.input-style {
+    width: 100%;
+}
+
+.radio-style {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 30%;
+}
+
+.react-datepicker__input-container {
+    width: inherit;
+  }
+  
+  .react-datepicker-wrapper {
+    width: 100%;
+  }
