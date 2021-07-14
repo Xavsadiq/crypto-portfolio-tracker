@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getTransactions } from '../../actions';
 import fire from '../../firebase';
-import history from '../../history';
+import { useHistory } from 'react-router-dom';
 import NumberFormat from 'react-number-format';
 
 const Transactions = ({ transactions, getTransactions, crypto }) => {
+    let history = useHistory();
     useEffect(() => {
         fire.auth().onAuthStateChanged((user) => {
             if (!user) {
@@ -18,7 +19,7 @@ const Transactions = ({ transactions, getTransactions, crypto }) => {
                 
         })  
         
-    }, [getTransactions, transactions, crypto]);
+    }, [getTransactions, transactions, crypto, history]);
         
     const currentPrice = (coin) => {
         if (crypto[coin]){

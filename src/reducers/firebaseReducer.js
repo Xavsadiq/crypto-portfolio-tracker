@@ -4,6 +4,8 @@ const firebaseReducer = (state = {}, action) => {
             return { ...state, transactions: action.payload };
         case 'GET_TRANSACTIONS':
             return { ...state, transactions: action.payload };
+        case 'CLEAR_TRANSACTIONS':
+            return { ...state = {} };
         default:
             return state;
     };

@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Field } from "react-final-form";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signUp } from '../actions';
+import fire from '../firebase';
 import './SignUp.css';
 
 const SignUp = ({ signUp }) => {
+    let history = useHistory();
+    
+    useEffect(() => {
+        fire.auth().onAuthStateChanged((user) => {
+            if (user) {
+                history.push('/dashboard');
+            }
+        });
+    })
+
     const renderError = ({ error, touched }) => {
         if (touched && error){
             return (

@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getTransactions, removeTransaction } from '../../actions';
+import { useHistory } from 'react-router-dom';
 import fire from '../../firebase';
-import history from '../../history';
 import NumberFormat from 'react-number-format';
 import Header from '../Header';
 import './Transactions.css';
 
 const Transactions = ({ transactions, getTransactions, removeTransaction }) => {
+    let history = useHistory();
     useEffect(() => {
         fire.auth().onAuthStateChanged((user) => {
             if (!user) {
@@ -19,7 +20,7 @@ const Transactions = ({ transactions, getTransactions, removeTransaction }) => {
             }
         })  
         
-    }, [getTransactions, transactions]);
+    }, [getTransactions, transactions, history]);
 
     const sumQuantity= () => {
         if(transactions) {

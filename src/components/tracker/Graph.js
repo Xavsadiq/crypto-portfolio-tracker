@@ -1,11 +1,12 @@
 import React, { useEffect} from 'react';
 import { connect } from 'react-redux';
 import { Bar } from 'react-chartjs-2';
-import history from '../../history';
+import { useHistory } from 'react-router-dom';
 import fire from '../../firebase';
 import './Graph.css';
 
 const Graph = ({ crypto, transactions }) => {
+    let history = useHistory();
     useEffect(() => {
         fire.auth().onAuthStateChanged((user) => {
             if (!user) {
@@ -13,7 +14,7 @@ const Graph = ({ crypto, transactions }) => {
             } 
         })
         
-    }, []);
+    }, [history]);
 
     const currentPrice = (coin) => {
         if (crypto[coin]){

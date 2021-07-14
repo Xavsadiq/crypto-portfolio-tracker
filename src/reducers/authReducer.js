@@ -14,7 +14,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
         case 'SIGN_UP':
             return { ...state, isSignedIn: true, userId: action.payload };
         case 'ERROR_SIGN_IN':
-            return { ...state, isSignedIn: true, userId: null, errorMessage: action.payload };
+            return { ...state, isSignedIn: false, userId: null, errorMessage: action.payload };
         default:
             return state;
     };

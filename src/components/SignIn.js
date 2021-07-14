@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Field } from "react-final-form";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signIn } from '../actions';
+import fire from '../firebase';
 import './SignUp.css';
 
-const SignIn = ({ signIn, auth_errors }) => {
+const SignIn = ({ signIn, auth }) => {
+    let history = useHistory();
+    
+    useEffect(() => {
+        fire.auth().onAuthStateChanged((user) => {
+            if (user) {
+                history.push('/dashboard');
+            }
+        });
+    })
+
     const renderError = ({ error, touched}) => {
-        if (touched && auth_errors){
+        if (touched && auth.errorMessage){
             return (
                 <div className="ui error message">
-                    <div className="header">{auth_errors}</div>
+                    <div className="header">{auth.errorMessage}</div>
                 </div>
             );
         }
@@ -32,11 +43,23 @@ const SignIn = ({ signIn, auth_errors }) => {
     };
 
     const onSubmit = (formValues) => {
-        signIn(formValues);
+        try {
+            signIn(formValues);
+        }
+        catch(e) { 
+            console.log(e); 
+        }
+
     }
 
     const guestAccount = (e) => {
-        signIn(e);
+        try {
+            signIn(e);
+        }
+        catch(e) { 
+            console.log(e); 
+        }
+        
     }
 
     const guestDetails = {
@@ -53,7 +76,13 @@ const SignIn = ({ signIn, auth_errors }) => {
                             onSubmit={onSubmit}
                             validate={(formValues) => {
                                 const errors = {};
-                                //add field level validation
+                                if (!formValues.email) {
+                                    errors.email = 'You must enter an email';
+                                }
+                            
+                                if (!formValues.password) {
+                                    errors.password = 'You must enter a password';
+                                }
                                 return errors;
 
                             }}>
@@ -66,14 +95,14 @@ const SignIn = ({ signIn, auth_errors }) => {
                             )}
                         </Form>
                     </div>
-                    <div className="ui message signup-content">Don't have an account? <Link to="/signup">Sign-up</Link><div>Or, snoop around with the <Link to="/" onClick={e=> {guestAccount(guestDetails)}}>Demo Account</Link></div></div>
+                    <div className="ui message signup-content">Don't have an account? <Link to="/signup">Sign-up</Link><div>Or, snoop around with the <Link to="/dashboard" onClick={e=> {guestAccount(guestDetails)}}>Demo Account</Link></div></div>
                 </div>
             </div> 
     );
 }
 
 const mapStateToProps = (state) => {
-    return { auth_errors: state.auth.errorMessage }
+    return { auth: state.auth}
 }
  
 export default connect(mapStateToProps, { signIn })(SignIn);

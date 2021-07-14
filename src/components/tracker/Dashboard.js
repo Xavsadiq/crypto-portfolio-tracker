@@ -1,21 +1,22 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Graph from './Graph';
-import history from '../../history';
 import Holdings from './Holdings';
 import Header from '../Header';
+import { useHistory } from 'react-router-dom';
 import fire from '../../firebase';
 import { cryptoPrices } from '../../actions';
 
 const Dashboard = ({ cryptoPrices, transactions, uniqueCrypto }) => {
+    let history = useHistory();
     useEffect(() => {
         fire.auth().onAuthStateChanged((user) => {
             if (!user) {
-                history.push('/');
+                history.push(process.env.PUBLIC_URL);
             }
 
             const uniqueCryptoList = () => {
-                if (Object.keys(uniqueCrypto).length !== 0){
+                if (Object.keys(uniqueCrypto).length !== 0 && user){
                     const ulist = uniqueCrypto.data.map(crypto => {
                         return cryptoPrices(crypto.coin_id);
                         });
@@ -26,7 +27,7 @@ const Dashboard = ({ cryptoPrices, transactions, uniqueCrypto }) => {
             } 
         )
         
-    }, [cryptoPrices, transactions, uniqueCrypto]);
+    }, [cryptoPrices, transactions, uniqueCrypto, history]);
 
     return (
         <div>

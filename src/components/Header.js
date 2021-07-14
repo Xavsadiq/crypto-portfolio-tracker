@@ -11,7 +11,7 @@ class Header extends React.Component {
                 <Link to="/dashboard" className="item">Dashboard</Link>
                 <Link to="/transactions" className="item">Transactions</Link>
                 <Link to="/add_transaction" className="item">Add Transaction</Link>
-                <a href="/" className="right item" onClick={e => this.props.signOut()}>Sign Out</a>
+                <Link to="/" className="right item" onClick={e => this.props.signOut()}>Sign Out</Link>
             </div>
         );
     }

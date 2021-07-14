@@ -1,6 +1,5 @@
 import coingecko from "../apis/coingecko";
 import fire from "../firebase";
-import history from '../history';
 import { format } from 'date-fns';
 import _ from 'lodash';
 
@@ -12,8 +11,6 @@ export const signUp = (formValues) => async dispatch => {
             type: 'SIGN_UP',
             payload: response.user.uid
             });
-        
-        history.push('/dashboard');
     }
     catch (e) { console.error(e); }
 };
@@ -28,7 +25,6 @@ export const signIn = (formValues) => async dispatch => {
             payload: response.user.uid
         });
 
-        history.push('/dashboard');
     }
     catch (e) { 
         console.log(e);
@@ -47,7 +43,18 @@ export const signOut = () => async dispatch => {
             type: 'SIGN_OUT'
         });
 
-        history.push('/');
+        dispatch({
+            type: 'CLEAR_PRICES'
+        });
+
+        dispatch({
+            type: 'CLEAR_TRANSACTIONS'
+        });
+
+        dispatch({
+            type: 'CLEAR_UNIQUE_CRYPTO'
+        });
+
     }
     catch (e) { console.error(e); }
 };
@@ -73,7 +80,6 @@ export const writeTransaction = (formValues, user) => (dispatch) => {
             payload: transactions
         })
 
-        history.push('/transactions');
     }
     catch (e) { console.error(e); }
 };

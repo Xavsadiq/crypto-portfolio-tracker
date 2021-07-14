@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Form, Field } from "react-final-form";
-import history from '../../history';
+import { useHistory } from 'react-router-dom';
 import Header from '../Header';
 import { cryptoList, writeTransaction } from '../../actions';
 import Select from 'react-select';
@@ -14,6 +14,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 const AddTransaction = ({ cryptoList, coinList, writeTransaction }) => {
+    let history = useHistory();
     useEffect(() => {
         fire.auth().onAuthStateChanged((user) => {
             if (!user) {
@@ -25,12 +26,18 @@ const AddTransaction = ({ cryptoList, coinList, writeTransaction }) => {
             }
         })
 
-    }, [coinList, cryptoList]);
+    }, [coinList, cryptoList, history]);
 
     const onSubmit = (formValues) => {
-        fire.auth().onAuthStateChanged((user) => {
-            writeTransaction(formValues, user.uid);
-        });
+        try {
+            fire.auth().onAuthStateChanged((user) => {
+                writeTransaction(formValues, user.uid);
+            });
+            history.push('/transactions');
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
 
     const renderDropDown = ({ input, label, meta }) => {
