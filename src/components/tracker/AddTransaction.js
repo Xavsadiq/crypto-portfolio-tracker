@@ -118,7 +118,7 @@ const AddTransaction = ({ cryptoList, coinList, writeTransaction }) => {
     return (
         <div>
             <Header />
-            <div className="ui container">
+            <div>
                 <div className="ui segment teal">
                         <h3 className="ui dividing header">Add Transaction</h3>
                         <Form
@@ -149,7 +149,7 @@ const AddTransaction = ({ cryptoList, coinList, writeTransaction }) => {
                             }}>
                             {({ handleSubmit }) => (
                                 <form onSubmit={handleSubmit} className="ui form error">
-                                    <div className="form-container">
+                                    <div className="form-container ui form">
                                         <div className="radio-style right">
                                             <Field name="type" component={renderRadio} type="radio" label="Bought" value="Bought"/>
                                             <Field name="type" component={renderRadio} type="radio" label="Sold "value="Sold" />

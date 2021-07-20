@@ -7,7 +7,7 @@ import './Header.css';
 class Header extends React.Component {
     render(){
         return (
-            <div className="ui menu">
+            <div className="ui stackable menu">
                 <Link to="/dashboard" className="item">Dashboard</Link>
                 <Link to="/transactions" className="item">Transactions</Link>
                 <Link to="/add_transaction" className="item">Add Transaction</Link>

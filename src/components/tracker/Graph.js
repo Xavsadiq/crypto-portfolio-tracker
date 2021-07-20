@@ -79,6 +79,7 @@ const Graph = ({ crypto, transactions }) => {
     }      
 
     const chartOptions = { 
+            responsive: true,
             plugins: {
                 title: {
                     display: true,
@@ -112,7 +113,8 @@ const Graph = ({ crypto, transactions }) => {
     }]
     }   
     
-    const chartOptionsProfit = { 
+    const chartOptionsProfit = {
+        responsive: true, 
         plugins: {
             title: {
                 display: true,
@@ -135,7 +137,7 @@ const Graph = ({ crypto, transactions }) => {
     return (
         <div className="ui segment teal">
             <h3 className="ui dividing header">Current Portfolio Breakdown</h3>
-            <div className="ui grid">
+            <div className="ui stackable grid">
                 <div className="eight wide column"><Bar data={chartData} options={chartOptions} /></div>
                 <div className="eight wide column"><Bar data={chartDataProfit} options={chartOptionsProfit} /></div>
             </div>

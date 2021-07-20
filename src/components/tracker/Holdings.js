@@ -95,7 +95,7 @@ const Transactions = ({ transactions, getTransactions, crypto }) => {
 }
     return (
         <div>
-            <div className="ui segment">
+            <div className="ui segment" style={{overflow:"auto"}}>
                 <h3 className="ui dividing header">View your holdings</h3>
                 <table className="ui celled table unstackable">
                     <thead>

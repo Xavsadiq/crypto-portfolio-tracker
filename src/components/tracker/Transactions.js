@@ -68,7 +68,7 @@ const Transactions = ({ transactions, getTransactions, removeTransaction }) => {
     return (
         <div>
             <Header />
-            <div className="ui segment teal">
+            <div className="ui segment teal" style={{overflow:"auto"}}>
                 <h3 className="ui dividing header">View your transactions</h3>
                 <table className="ui celled table unstackable">
                     <thead>
